@@ -1,4 +1,19 @@
+#map_container {
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
 #map {
     width: 70vw;
     height: 70vh;
+}
+
+#info_station {
+    width: 30vw;
+    height: 70vh;
+    border: 1px solid #000;
 }

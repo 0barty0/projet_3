@@ -1,7 +1,36 @@
 var stationsMarkers = [];
 
 function stationStatus(number) {
-    alert(number);
+    var station;
+    // API REST JCDecaux
+    var reqUrl = "https://api.jcdecaux.com/vls/v1/stations/" + number + "?contract=lyon&apiKey=a077fde6a261a60b1653cd0462c51eb664a29501";
+    var reqStation = new XMLHttpRequest();
+    reqStation.open("get", reqUrl, true);
+    reqStation.send();
+    reqStation.onload = function () {
+        station = JSON.parse(reqStation.response);
+
+        // Update station informations
+
+        var index = station.name.indexOf('-');
+        var name = station.name.slice(index + 1);
+        $('#name_station').text(name);
+        $('#address_station').text(station['address']);
+
+        var status = (station.status === 'OPEN') ? 'ouvert' : 'fermé';
+        $('#status').text('État : ' + status);
+
+        var banking = (station.banking) ? 'oui' : 'non';
+        $('#banking').text('Terminal de paiement : ' + banking);
+
+        $('#bike_stands').text(station.bike_stands + ' places');
+        $('#available_bikes').text(station.available_bikes + ' vélos disponibles');
+
+        var lastUpdate = new Date(station.last_update);
+        $('#last_update').text('Mise à jour à : ' + lastUpdate.getHours() + 'h' + lastUpdate.getMinutes() + 'min' + lastUpdate.getSeconds() + 's');
+    };
+
+
 }
 
 window.onload = function () {
@@ -19,8 +48,7 @@ window.onload = function () {
             anchor: new google.maps.Point(12.5, 35)
         };
         // Add stations markers to the map
-        for (var i = 0; i < stations.length; i++) {
-            var station = stations[i];
+        stations.forEach(function (station) {
             var latLng = new google.maps.LatLng(station['latitude'], station['longitude']);
             var marker = new google.maps.Marker({
                 position: latLng,
@@ -33,15 +61,15 @@ window.onload = function () {
             });
             marker.number = station['number'];
             stationsMarkers.push(marker);
-        }
+        });
     };
 
     // Change markers on zoom
     google.maps.event.addListener(map, 'zoom_changed', function () {
         var zoom = map.getZoom();
-        for (var i = 0; i < stationsMarkers.length; i++) {
-            stationsMarkers[i].setVisible(zoom >= 14);
-        }
+        stationsMarkers.forEach(function (marker) {
+            marker.setVisible(zoom >= 14);
+        });
     });
 
 };
