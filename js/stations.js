@@ -1,7 +1,16 @@
 var stationsMarkers = [];
+var station;
+
+class Booking {
+    constructor(number, name) {
+        this.number = number;
+        this.name = name;
+        this.time = Date.now();
+    }
+}
 
 function stationStatus(number) {
-    var station;
+
     // API REST JCDecaux
     var reqUrl = "https://api.jcdecaux.com/vls/v1/stations/" + number + "?contract=lyon&apiKey=a077fde6a261a60b1653cd0462c51eb664a29501";
     var reqStation = new XMLHttpRequest();
@@ -13,8 +22,8 @@ function stationStatus(number) {
         // Update station informations
 
         var index = station.name.indexOf('-');
-        var name = station.name.slice(index + 1);
-        $('#name_station').text(name);
+        station.name = station.name.slice(index + 1);
+        $('#name_station').text(station.name);
         $('#address_station').text(station['address']);
 
         var status = (station.status === 'OPEN') ? 'ouvert' : 'fermé';
@@ -28,9 +37,13 @@ function stationStatus(number) {
 
         var lastUpdate = new Date(station.last_update);
         $('#last_update').text('Mise à jour à : ' + lastUpdate.getHours() + 'h' + lastUpdate.getMinutes() + 'min' + lastUpdate.getSeconds() + 's');
+
+        $('#bookingBtn').css('visibility', 'visible');
     };
+}
 
-
+function bookingStatus() {
+    $('#booking_panel p').text('1 vélo réservé à la station ' + sessionStorage.name + ' pour 20 min');
 }
 
 window.onload = function () {
@@ -72,4 +85,11 @@ window.onload = function () {
         });
     });
 
+    // Booking button
+    $('#bookingBtn').click(function () {
+        var booking = new Booking(station.number, station.name);
+        sessionStorage.name = booking.name;
+        sessionStorage.time = booking.time;
+        bookingStatus();
+    });
 };
