@@ -18,7 +18,7 @@
     border: 1px solid #000;
 }
 
-#bookingBtn {
+#booking_btn {
     visibility: hidden;
     cursor: pointer;
 }

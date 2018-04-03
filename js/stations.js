@@ -1,5 +1,6 @@
-var stationsMarkers = [];
-var station;
+var stationsMarkers = [],
+    station, intervalID, counter;
+
 
 class Booking {
     constructor(number, name) {
@@ -38,15 +39,35 @@ function stationStatus(number) {
         var lastUpdate = new Date(station.last_update);
         $('#last_update').text('Mise à jour à : ' + lastUpdate.getHours() + 'h' + lastUpdate.getMinutes() + 'min' + lastUpdate.getSeconds() + 's');
 
-        $('#bookingBtn').css('visibility', 'visible');
+        $('#booking_btn').css('visibility', 'visible');
     };
 }
 
 function bookingStatus() {
-    $('#booking_panel p').text('1 vélo réservé à la station ' + sessionStorage.name + ' pour 20 min');
+    var minutes = Math.floor(sessionStorage.counter / 60);
+    var seconds = sessionStorage.counter - minutes * 60;
+
+    $('#booking_panel p').html('1 vélo réservé à la station ' + sessionStorage.name + ' pour ');
+    $('#booking_panel p').append('<span id="counter">' +
+        minutes + ' min ' + seconds + ' s</span>');
+}
+
+function updateStatus() {
+    sessionStorage.counter--;
+    var minutes = Math.floor(sessionStorage.counter / 60);
+    var seconds = sessionStorage.counter - minutes * 60;
+    $('#counter').text(minutes + ' min ' + seconds + ' s');
+    if (sessionStorage.counter == 0) {
+        clearInterval(intervalID);
+    }
 }
 
 window.onload = function () {
+    if (sessionStorage.counter > 0) {
+        bookingStatus();
+        intervalID = setInterval("updateStatus();", 1000);
+    }
+
     var stations;
     // Recovery of the stations list
     var request = new XMLHttpRequest();
@@ -86,10 +107,13 @@ window.onload = function () {
     });
 
     // Booking button
-    $('#bookingBtn').click(function () {
+    $('#booking_btn').click(function () {
         var booking = new Booking(station.number, station.name);
         sessionStorage.name = booking.name;
         sessionStorage.time = booking.time;
+        sessionStorage.counter = 1200;
         bookingStatus();
+        clearInterval(intervalID);
+        intervalID = setInterval("updateStatus();", 1000);
     });
 };
