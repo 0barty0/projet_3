@@ -59,11 +59,14 @@ function updateStatus() {
     $('#counter').text(minutes + ' min ' + seconds + ' s');
     if (sessionStorage.counter == 0) {
         clearInterval(intervalID);
+        $('#booking_panel p').html('Votre réservation à la station ' + sessionStorage.name + ' a expirée.');
     }
 }
 
 window.onload = function () {
-    if (sessionStorage.counter > 0) {
+    // Recovery of the last booking
+    if (sessionStorage.length > 0) {
+        sessionStorage.counter = 1200 - Math.floor((Date.now() - sessionStorage.time) / 1000);
         bookingStatus();
         intervalID = setInterval("updateStatus();", 1000);
     }
