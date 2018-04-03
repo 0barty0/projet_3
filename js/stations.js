@@ -1,7 +1,17 @@
-var stationsMarkers = [];
+var stationsMarkers = [],
+    station, intervalID, counter;
+
+
+class Booking {
+    constructor(number, name) {
+        this.number = number;
+        this.name = name;
+        this.time = Date.now();
+    }
+}
 
 function stationStatus(number) {
-    var station;
+
     // API REST JCDecaux
     var reqUrl = "https://api.jcdecaux.com/vls/v1/stations/" + number + "?contract=lyon&apiKey=a077fde6a261a60b1653cd0462c51eb664a29501";
     var reqStation = new XMLHttpRequest();
@@ -13,8 +23,8 @@ function stationStatus(number) {
         // Update station informations
 
         var index = station.name.indexOf('-');
-        var name = station.name.slice(index + 1);
-        $('#name_station').text(name);
+        station.name = station.name.slice(index + 1);
+        $('#name_station').text(station.name);
         $('#address_station').text(station['address']);
 
         var status = (station.status === 'OPEN') ? 'ouvert' : 'fermé';
@@ -28,12 +38,36 @@ function stationStatus(number) {
 
         var lastUpdate = new Date(station.last_update);
         $('#last_update').text('Mise à jour à : ' + lastUpdate.getHours() + 'h' + lastUpdate.getMinutes() + 'min' + lastUpdate.getSeconds() + 's');
+
+        $('#booking_btn').css('visibility', 'visible');
     };
+}
 
+function bookingStatus() {
+    var minutes = Math.floor(sessionStorage.counter / 60);
+    var seconds = sessionStorage.counter - minutes * 60;
 
+    $('#booking_panel p').html('1 vélo réservé à la station ' + sessionStorage.name + ' pour ');
+    $('#booking_panel p').append('<span id="counter">' +
+        minutes + ' min ' + seconds + ' s</span>');
+}
+
+function updateStatus() {
+    sessionStorage.counter--;
+    var minutes = Math.floor(sessionStorage.counter / 60);
+    var seconds = sessionStorage.counter - minutes * 60;
+    $('#counter').text(minutes + ' min ' + seconds + ' s');
+    if (sessionStorage.counter == 0) {
+        clearInterval(intervalID);
+    }
 }
 
 window.onload = function () {
+    if (sessionStorage.counter > 0) {
+        bookingStatus();
+        intervalID = setInterval("updateStatus();", 1000);
+    }
+
     var stations;
     // Recovery of the stations list
     var request = new XMLHttpRequest();
@@ -72,4 +106,14 @@ window.onload = function () {
         });
     });
 
+    // Booking button
+    $('#booking_btn').click(function () {
+        var booking = new Booking(station.number, station.name);
+        sessionStorage.name = booking.name;
+        sessionStorage.time = booking.time;
+        sessionStorage.counter = 1200;
+        bookingStatus();
+        clearInterval(intervalID);
+        intervalID = setInterval("updateStatus();", 1000);
+    });
 };

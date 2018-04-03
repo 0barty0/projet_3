@@ -14,6 +14,11 @@
 
 #info_station {
     width: 30vw;
-    height: 70vh;
+    min-height: 70vh;
     border: 1px solid #000;
+}
+
+#booking_btn {
+    visibility: hidden;
+    cursor: pointer;
 }
