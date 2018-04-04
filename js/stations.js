@@ -57,7 +57,7 @@ function updateStatus() {
     var minutes = Math.floor(sessionStorage.counter / 60);
     var seconds = sessionStorage.counter - minutes * 60;
     $('#counter').text(minutes + ' min ' + seconds + ' s');
-    if (sessionStorage.counter == 0) {
+    if (sessionStorage.counter <= 0) {
         clearInterval(intervalID);
         $('#booking_panel p').html('Votre réservation à la station ' + sessionStorage.name + ' a expirée.');
     }
@@ -67,8 +67,10 @@ window.onload = function () {
     // Recovery of the last booking
     if (sessionStorage.length > 0) {
         sessionStorage.counter = 1200 - Math.floor((Date.now() - sessionStorage.time) / 1000);
-        bookingStatus();
-        intervalID = setInterval("updateStatus();", 1000);
+        if (sessionStorage.counter > 0) {
+            bookingStatus();
+            intervalID = setInterval("updateStatus();", 1000);
+        }
     }
 
     var stations;
