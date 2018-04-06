@@ -60,6 +60,9 @@ function updateStatus() {
     if (sessionStorage.counter <= 0) {
         clearInterval(intervalID);
         $('#booking_panel p').html('Votre réservation à la station ' + sessionStorage.name + ' a expirée.');
+        setTimeout(function () {
+            $('#booking_panel p').html('');
+        }, 4000);
     }
 }
 
