@@ -85,9 +85,9 @@ window.onload = function () {
         stations = JSON.parse(this.responseText);
         var bikeIcon = {
             url: 'data/bike.png',
-            size: new google.maps.Size(25, 35),
+            size: new google.maps.Size(40, 52),
             origin: new google.maps.Point(0, 0),
-            anchor: new google.maps.Point(12.5, 35)
+            anchor: new google.maps.Point(20, 52)
         };
         // Add stations markers to the map
         stations.forEach(function (station) {
@@ -104,6 +104,26 @@ window.onload = function () {
             marker.number = station['number'];
             stationsMarkers.push(marker);
         });
+
+        // Add markers clusterer
+        var clusterStyles = [
+            {
+                url: 'data/bike.png',
+                height: 52,
+                width: 40,
+                anchor: [27, 0],
+                textSize: 12
+            }
+        ]
+
+        var mcOptions = {
+            gridSize: 50,
+            styles: clusterStyles,
+            maxZoom: 15
+        }
+
+        var markerCluster = new MarkerClusterer(map, stationsMarkers, mcOptions);
+
     };
 
     // Change markers on zoom
