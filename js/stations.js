@@ -1,7 +1,3 @@
-var stationsMarkers = [],
-    station, intervalID, counter;
-
-
 class Booking {
     constructor(number, name) {
         this.number = number;
@@ -9,6 +5,71 @@ class Booking {
         this.time = Date.now();
     }
 }
+
+class Canvas {
+    constructor() {
+        this.context = document.getElementById('canvas').getContext('2d');
+        this.clickX = new Array();
+        this.clickY = new Array();
+        this.clickDrag = new Array();
+        this.paint = false;
+        this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height);
+
+        // Event listeners
+        var canvas = this;
+        $('#canvas').mousedown(function (e) {
+            var mouseX = e.pageX - this.offsetLeft;
+            var mouseY = e.pageY - this.offsetTop;
+            canvas.paint = true;
+            canvas.addClick(mouseX, mouseY);
+            canvas.redraw();
+        });
+
+        $('#canvas').mousemove(function (e) {
+            if (canvas.paint) {
+                canvas.addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
+                canvas.redraw();
+            }
+        });
+
+        $('#canvas').mouseup(function (e) {
+            canvas.paint = false;
+        });
+
+        $('#canvas').mouseleave(function (e) {
+            canvas.paint = false;
+        });
+    }
+    addClick(x, y, dragging) {
+        this.clickX.push(x);
+        this.clickY.push(y);
+        this.clickDrag.push(dragging);
+    }
+    redraw() {
+        this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height);
+        this.context.stokeStyle = "#df4b26";
+        this.context.lineJoin = "round";
+        this.context.lineWidth = 5;
+
+        for (var i = 0; i < this.clickX.length; i++) {
+            this.context.beginPath();
+
+            if (this.clickDrag[i] && i) {
+                this.context.moveTo(this.clickX[i - 1], this.clickY[i - 1]);
+            } else {
+                this.context.moveTo(this.clickX[i] - 1, this.clickY[i] - 1);
+            }
+            this.context.lineTo(this.clickX[i], this.clickY[i]);
+            this.context.closePath();
+            this.context.stroke();
+        }
+    }
+}
+
+var stationsMarkers = [],
+    station, intervalID, counter;
+
+
 
 function stationStatus(number) {
 
@@ -19,6 +80,8 @@ function stationStatus(number) {
     reqStation.send();
     reqStation.onload = function () {
         station = JSON.parse(reqStation.response);
+
+        $('#canvas_container').css('display', 'none');
 
         // Update station informations
         $('#info_station').css('display', 'block');
@@ -116,9 +179,9 @@ window.onload = function () {
         ]
 
         var mcOptions = {
-            gridSize: 100,
+            gridSize: 80,
             styles: clusterStyles,
-            maxZoom: 15
+            maxZoom: 14
         }
 
         var markerCluster = new MarkerClusterer(map, stationsMarkers, mcOptions);
@@ -136,6 +199,7 @@ window.onload = function () {
     // Booking button
     $('#booking_btn').click(function () {
         $('#canvas_container').slideDown(400);
+        var canvas = new Canvas();
     });
 
     // Confirm button
@@ -147,62 +211,6 @@ window.onload = function () {
         bookingStatus();
         clearInterval(intervalID);
         intervalID = setInterval("updateStatus();", 1000);
-    });
-
-    // Canvas confirmation
-    var context = document.getElementById('canvas').getContext("2d");
-
-    var clickX = new Array();
-    var clickY = new Array();
-    var clickDrag = new Array();
-    var paint;
-
-    function addClick(x, y, dragging) {
-        clickX.push(x);
-        clickY.push(y);
-        clickDrag.push(dragging);
-    }
-
-    function redraw() {
-        context.clearRect(0, 0, context.canvas.width, context.canvas.height);
-        context.stokeStyle = "#df4b26";
-        context.lineJoin = "round";
-        context.lineWidth = 5;
-
-        for (var i = 0; i < clickX.length; i++) {
-            context.beginPath();
-
-            if (clickDrag[i] && i) {
-                context.moveTo(clickX[i - 1], clickY[i - 1]);
-            } else {
-                context.moveTo(clickX[i] - 1, clickY[i] - 1);
-            }
-            context.lineTo(clickX[i], clickY[i]);
-            context.closePath();
-            context.stroke();
-        }
-    }
-
-    $('#canvas').mousedown(function (e) {
-        var mouseX = e.pageX - this.offsetLeft;
-        var mouseY = e.pageY - this.offsetTop;
-        paint = true;
-        addClick(mouseX, mouseY);
-        redraw();
-    });
-
-    $('#canvas').mousemove(function (e) {
-        if (paint) {
-            addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
-            redraw();
-        }
-    });
-
-    $('#canvas').mouseup(function (e) {
-        paint = false;
-    });
-
-    $('#canvas').mouseleave(function (e) {
-        paint = false;
+        $('#canvas_container').slideUp(400);
     });
 };
