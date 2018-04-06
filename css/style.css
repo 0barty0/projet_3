@@ -13,13 +13,13 @@
 }
 
 #info_station {
+    display: none;
     width: 30vw;
     min-height: 70vh;
     border: 1px solid #000;
 }
 
-#booking_btn {
-    visibility: hidden;
+.btn {
     cursor: pointer;
 }
 

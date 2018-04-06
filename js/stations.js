@@ -21,6 +21,7 @@ function stationStatus(number) {
         station = JSON.parse(reqStation.response);
 
         // Update station informations
+        $('#info_station').css('display', 'block');
 
         var index = station.name.indexOf('-');
         station.name = station.name.slice(index + 1);
@@ -38,8 +39,6 @@ function stationStatus(number) {
 
         var lastUpdate = new Date(station.last_update);
         $('#last_update').text('Mise à jour à : ' + lastUpdate.getHours() + 'h' + lastUpdate.getMinutes() + 'min' + lastUpdate.getSeconds() + 's');
-
-        $('#booking_btn').css('visibility', 'visible');
     };
 }
 
@@ -151,7 +150,7 @@ window.onload = function () {
     });
 
     // Canvas confirmation
-    context = document.getElementById('canvas').getContext("2d");
+    var context = document.getElementById('canvas').getContext("2d");
 
     var clickX = new Array();
     var clickY = new Array();
