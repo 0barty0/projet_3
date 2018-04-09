@@ -6,24 +6,35 @@ class Booking {
         this.counter = 1200;
     }
     status() {
-        var minutes = Math.floor(this.counter / 60);
-        var seconds = this.counter - minutes * 60;
+        var counter = 1200 - Math.floor((Date.now() - this.time) / 1000);
 
-        $('#booking_panel p').html('1 vélo réservé à la station ' + this.name + ' pour ');
-        $('#booking_panel p').append('<span id="counter">' +
-            minutes + ' min ' + seconds + ' s</span>');
+        if (counter > 0) {
+            var minutes = Math.floor(counter / 60);
+            var seconds = counter - minutes * 60;
+
+            var pElmt = $('<p></p>').attr('id', this.number);
+            var spanElmt = $('<span></span>').attr('id', 'counter');
+
+            pElmt.text('1 vélo réservé à la station ' + this.name + ' pour ');
+            spanElmt.text(minutes + ' min ' + seconds + ' s');
+
+            pElmt.append(spanElmt);
+            $('#booking_panel').append(pElmt);
+
+            intervalID = setInterval("this.update();", 1000);
+        }
     }
     update() {
-        this.counter--;
-        var minutes = Math.floor(this.counter / 60);
-        var seconds = this.counter - minutes * 60;
+        var counter = 1200 - Math.floor((Date.now() - this.time) / 1000);
+        var minutes = Math.floor(counter / 60);
+        var seconds = counter - minutes * 60;
         $('#counter').text(minutes + ' min ' + seconds + ' s');
 
-        if (this.counter <= 0) {
+        if (counter <= 0) {
             clearInterval(intervalID);
             $('#booking_panel p').html('Votre réservation à la station ' + this.name + ' a expirée.');
             setTimeout(function () {
-                $('#booking_panel p').html('');
+                $('#booking_panel').html('');
             }, 4000);
         }
     }
@@ -136,11 +147,7 @@ window.onload = function () {
         var storedBooking = JSON.parse(sessionStorage.booking);
         booking = new Booking(storedBooking.number, storedBooking.name);
         booking.time = storedBooking.time;
-        booking.counter = 1200 - Math.floor((Date.now() - booking.time) / 1000);
-        if (booking.counter > 0) {
-            booking.status();
-            intervalID = setInterval("booking.update();", 1000);
-        }
+        booking.status();
     }
 
     var stations;
