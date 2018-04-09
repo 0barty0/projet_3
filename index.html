@@ -4,25 +4,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <title>VeloLoc</title>
+    <link rel="icon" href="data/favicon.ico">
     <link rel="stylesheet" href="css/style.css">
+    <title>VeloLoc</title>
 </head>
 
 <body>
+    <header>
+        <h1>Veloloc Lyon</h1>
+        <figure><img id="logo" src="data/logo.png" alt="Veloloc logo"></figure>
+    </header>
     <section id="map_container">
         <div id="map"></div>
         <div id="info_station">
-            <h2 id="name_station"></h2>
-            <address id="address_station"></address>
-            <h3 id="status"></h3>
-            <h3 id="banking"></h3>
-            <h3 id="bike_stands"></h3>
-            <h3 id="available_bikes"></h3>
-            <p id="last_update"></p>
-            <button id="booking_btn" class="btn">Réserver</button>
-            <div id="canvas_container">
-                <canvas id="canvas" width="350px" height="150px"></canvas>
-                <button id="confirm_btn" class="btn">Confirmer</button>
+            <div id="station_title">
+                <h2 id="name_station"></h2>
+                <address id="address_station"></address>
+            </div>
+            <div id="station_details">
+                <h3 id="status"></h3>
+                <h3 id="banking"></h3>
+                <h3 id="bike_stands"></h3>
+                <h3 id="available_bikes"></h3>
+                <p id="last_update"></p>
+                <button id="booking_btn" class="btn">Réserver</button>
+                <div id="canvas_container">
+                    <canvas id="canvas" width="250px" height="150px"></canvas>
+                    <button id="confirm_btn" class="btn">Confirmer</button>
+                </div>
             </div>
         </div>
     </section>

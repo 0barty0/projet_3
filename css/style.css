@@ -1,40 +1,111 @@
 @font-face {
     font-family: 'source_sans_proregular';
-    src: url('data/font/sourcesanspro-regular-webfont.woff2') format('woff2'),
-         url('data/font/sourcesanspro-regular-webfont.woff') format('woff');
+    src: url('/data/font/sourcesanspro-regular-webfont.woff2') format('woff2'),
+    url('/data/font/sourcesanspro-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'alex_brushregular';
+    src: url('/data/font/alexbrush-regular-webfont.woff2') format('woff2'),
+    url('/data/alexbrush-regular-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 
 }
 
 body {
-    font-family: source_sans_proregular,Arial,sans-serif;
+    font-family: source_sans_proregular, Arial, sans-serif;
+    background-color: #eceeef;
+    color: #27476e;
+    margin: 0;
 }
 
-
-#map_container {
+header {
+    background-color: #001d4a;
+    margin-top: 0;
+    padding: 1em 2em;
     display: -moz-flex;
     display: -ms-flex;
     display: -o-flex;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+
+header h1 {
+    font-family: alex_brushregular, Arial, sans-serif;
+    font-size: 4em;
+    color: #eca400;
+    width: 30vw;
+    margin: 0;
+}
+
+#logo {
+    width: 100px;
+}
+
+#map_container {
+    background-color: #006992;
+    padding: 2em 0;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
 }
 
 #map {
     width: 70vw;
     height: 70vh;
+    -webkit-box-shadow: 5px 5px 3px #000;
+    box-shadow: 5px 5px 3px #000;
 }
 
 #info_station {
-    display: none;
-    width: 30vw;
-    min-height: 70vh;
-    border: 1px solid #000;
+    opacity: 0;
+    background-color: #eceeef;
+    width: 25vw;
+    max-height: 70vh;
+    border: 8px solid #eca400;
+    border-radius: 20px;
+    -webkit-box-shadow: 5px 5px 3px #000;
+    box-shadow: 5px 5px 3px #000;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+#station_title {
+    background-color: #eca400;
+    color: #001d4a;
+    padding: 1em;
+}
+
+#info_station h2 {
+    margin: 0;
+}
+
+#station_details {
+    padding: 1em;
 }
 
 .btn {
     cursor: pointer;
+    display: block;
+    margin: auto;
+    background-color: #eca400;
+    color: #001d4a;
+    font-size: 1.2em;
+    padding: 0.2em;
+    border-radius: 10px;
 }
 
 #canvas_container {

@@ -107,7 +107,9 @@ function stationStatus(number) {
         $('#canvas_container').css('display', 'none');
 
         // Update station informations
-        $('#info_station').css('display', 'block');
+        $('#info_station').animate({
+            opacity: 1
+        });
 
         var index = station.name.indexOf('-');
         station.name = station.name.slice(index + 1);
