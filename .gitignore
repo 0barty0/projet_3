@@ -4,5 +4,12 @@
 /bower_components/
 /node_modules/
 /data/Lyon.json
-/undefined
-/.gitignore
+/data/bike.png
+/data/font/sourcesanspro-bold-webfont.woff2
+/data/font/sourcesanspro-bold-webfont.woff
+/data/font/sourcesanspro-it-webfont.ttf
+/data/font/sourcesanspro-it-webfont.woff
+/data/font/sourcesanspro-it-webfont.woff2
+/data/font/sourcesanspro-regular-webfont.ttf
+/data/font/sourcesanspro-regular-webfont.woff
+/data/font/sourcesanspro-regular-webfont.woff2
