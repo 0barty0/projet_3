@@ -1,3 +1,17 @@
+@font-face {
+    font-family: 'source_sans_proregular';
+    src: url('data/font/sourcesanspro-regular-webfont.woff2') format('woff2'),
+         url('data/font/sourcesanspro-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+body {
+    font-family: source_sans_proregular,Arial,sans-serif;
+}
+
+
 #map_container {
     display: -moz-flex;
     display: -ms-flex;
