@@ -3,7 +3,6 @@ class Booking {
         this.number = number;
         this.name = name;
         this.time = Date.now();
-        this.counter = 1200;
     }
     status() {
         var counter = 1200 - Math.floor((Date.now() - this.time) / 1000);
@@ -13,30 +12,51 @@ class Booking {
             var seconds = counter - minutes * 60;
 
             var pElmt = $('<p></p>').attr('id', this.number);
-            var spanElmt = $('<span></span>').attr('id', 'counter');
+            var spanElmt = $('<span></span>').addClass('counter');
+            var cancelBtn = $('<button>Annuler</button>').addClass('btn');
 
             pElmt.text('1 vélo réservé à la station ' + this.name + ' pour ');
             spanElmt.text(minutes + ' min ' + seconds + ' s');
 
+            var booking = this;
+            cancelBtn.click(function () {
+                booking.cancel();
+            });
+
             pElmt.append(spanElmt);
+            pElmt.append(cancelBtn);
             $('#booking_panel').append(pElmt);
 
-            intervalID = setInterval("this.update();", 1000);
+            intervalID = setInterval(function () {
+                booking.update();
+            }, 1000);
         }
     }
     update() {
         var counter = 1200 - Math.floor((Date.now() - this.time) / 1000);
         var minutes = Math.floor(counter / 60);
         var seconds = counter - minutes * 60;
-        $('#counter').text(minutes + ' min ' + seconds + ' s');
+        $('#booking_panel p span').text(minutes + ' min ' + seconds + ' s');
 
         if (counter <= 0) {
             clearInterval(intervalID);
             $('#booking_panel p').html('Votre réservation à la station ' + this.name + ' a expirée.');
+            sessionStorage.removeItem('booking');
             setTimeout(function () {
-                $('#booking_panel').html('');
+                $('#booking_panel p').remove();
             }, 4000);
         }
+    }
+    cancel() {
+        clearInterval(intervalID);
+        $('#booking_panel p').html('Votre réservation à la station ' + this.name + ' est annulée.');
+
+        setTimeout(function () {
+            $('#booking_panel p').remove();
+        }, 4000);
+
+        sessionStorage.removeItem('booking');
+
     }
 }
 
@@ -216,6 +236,8 @@ window.onload = function () {
 
     // Confirm button
     $('#confirm_btn').click(function () {
+        $('#booking_panel p').remove();
+
         booking = new Booking(station.number, station.name);
         sessionStorage.booking = JSON.stringify(booking);
         booking.status();
