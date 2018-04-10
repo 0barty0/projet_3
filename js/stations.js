@@ -78,8 +78,9 @@ class Canvas {
         // Event listeners
         var canvas = this;
         $('#canvas').mousedown(function (e) {
-            var mouseX = e.pageX - this.offsetLeft;
-            var mouseY = e.pageY - this.offsetTop;
+            var mouseX = e.pageX - this.parentNode.offsetLeft - this.offsetLeft - pageXOffset;
+            var mouseY = e.pageY - this.parentNode.offsetTop - this.offsetTop - pageYOffset;
+
             canvas.paint = true;
             canvas.addClick(mouseX, mouseY);
             canvas.redraw();
@@ -87,7 +88,9 @@ class Canvas {
 
         $('#canvas').mousemove(function (e) {
             if (canvas.paint) {
-                canvas.addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
+                var mouseX = e.pageX - this.parentNode.offsetLeft - this.offsetLeft - pageXOffset;
+                var mouseY = e.pageY - this.parentNode.offsetTop - this.offsetTop - pageYOffset;
+                canvas.addClick(mouseX, mouseY, true);
                 canvas.redraw();
             }
         });
@@ -236,12 +239,16 @@ window.onload = function () {
 
     // Booking button
     $('#booking_btn').click(function () {
-        $('#canvas_container').slideDown(400);
+        $('#fade').fadeIn(400);
+        $('#canvas_container').fadeIn(400);
         var canvas = new Canvas();
     });
 
     // Confirm button
     $('#confirm_btn').click(function () {
+        $('#fade').fadeOut(400);
+        $('#canvas_container').fadeOut(400);
+
         clearInterval(intervalID);
         $('#booking_panel').html('');
 
