@@ -167,6 +167,12 @@ function stationStatus(number) {
 
         var lastUpdate = new Date(station.last_update);
         $('#last_update').text('Mise à jour à : ' + lastUpdate.getHours() + 'h' + lastUpdate.getMinutes() + 'min' + lastUpdate.getSeconds() + 's');
+
+        if (station.status === 'OPEN' && station.available_bikes > 0) {
+            $('#booking_btn').css('display', 'block');
+        } else {
+            $('#booking_btn').css('display', 'none');
+        }
     };
 }
 
@@ -201,6 +207,8 @@ window.onload = function () {
                 visible: false,
                 icon: bikeIcon
             });
+
+            // On click display the station status
             google.maps.event.addListener(marker, 'click', function () {
                 stationStatus(this.number);
             });
@@ -218,15 +226,12 @@ window.onload = function () {
                 textSize: 12
             }
         ]
-
         var mcOptions = {
             gridSize: 80,
             styles: clusterStyles,
             maxZoom: 14
         }
-
         var markerCluster = new MarkerClusterer(map, stationsMarkers, mcOptions);
-
     };
 
     // Change markers on zoom
