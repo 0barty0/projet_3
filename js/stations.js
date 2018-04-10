@@ -3,29 +3,66 @@ class Booking {
         this.number = number;
         this.name = name;
         this.time = Date.now();
-        this.counter = 1200;
     }
     status() {
-        var minutes = Math.floor(this.counter / 60);
-        var seconds = this.counter - minutes * 60;
+        var counter = 1200 - Math.floor((Date.now() - this.time) / 1000);
 
-        $('#booking_panel p').html('1 vélo réservé à la station ' + this.name + ' pour ');
-        $('#booking_panel p').append('<span id="counter">' +
-            minutes + ' min ' + seconds + ' s</span>');
+        if (counter > 0) {
+            var minutes = Math.floor(counter / 60);
+            var seconds = counter - minutes * 60;
+
+            var pContainer = $('<div></div>').attr('id', 'booking' + this.number).addClass('booking');
+            var pElmt = $('<p></p>');
+            var spanElmt = $('<span></span>').attr('id', 'counter');
+            var cancelBtn = $('<button>Annuler</button>').addClass('btn').attr('id', 'cancel_btn');
+
+            pElmt.html('1 vélo réservé à la station ' + this.name + '<br/> pour ');
+            spanElmt.text(minutes + ' min ' + seconds + ' s');
+
+            var booking = this;
+            cancelBtn.click(function () {
+                booking.cancel();
+            });
+
+            pElmt.append(spanElmt);
+            pContainer.append(pElmt);
+            pContainer.append(cancelBtn);
+            $('#booking_panel').append(pContainer);
+
+            intervalID = setInterval(function () {
+                booking.update();
+            }, 1000);
+        }
     }
     update() {
-        this.counter--;
-        var minutes = Math.floor(this.counter / 60);
-        var seconds = this.counter - minutes * 60;
+        var number = this.number;
+        var counter = 1200 - Math.floor((Date.now() - this.time) / 1000);
+        var minutes = Math.floor(counter / 60);
+        var seconds = counter - minutes * 60;
         $('#counter').text(minutes + ' min ' + seconds + ' s');
 
-        if (this.counter <= 0) {
+        if (counter <= 0) {
             clearInterval(intervalID);
-            $('#booking_panel p').html('Votre réservation à la station ' + this.name + ' a expirée.');
+            $('#cancel_btn').remove();
+            $('#booking' + number + ' p').text('Votre réservation à la station ' + this.name + ' a expirée.');
+            sessionStorage.removeItem('booking');
             setTimeout(function () {
-                $('#booking_panel p').html('');
+                $('#booking' + number).remove();
             }, 4000);
         }
+    }
+    cancel() {
+        clearInterval(intervalID);
+        var number = this.number;
+        $('#cancel_btn').remove();
+        $('#booking' + number + ' p').text('Votre réservation à la station ' + this.name + ' est annulée.');
+
+        setTimeout(function () {
+            $('#booking' + number).remove();
+        }, 4000);
+
+        sessionStorage.removeItem('booking');
+
     }
 }
 
@@ -136,11 +173,7 @@ window.onload = function () {
         var storedBooking = JSON.parse(sessionStorage.booking);
         booking = new Booking(storedBooking.number, storedBooking.name);
         booking.time = storedBooking.time;
-        booking.counter = 1200 - Math.floor((Date.now() - booking.time) / 1000);
-        if (booking.counter > 0) {
-            booking.status();
-            intervalID = setInterval("booking.update();", 1000);
-        }
+        booking.status();
     }
 
     var stations;
@@ -209,11 +242,12 @@ window.onload = function () {
 
     // Confirm button
     $('#confirm_btn').click(function () {
+        clearInterval(intervalID);
+        $('#booking_panel').html('');
+
         booking = new Booking(station.number, station.name);
         sessionStorage.booking = JSON.stringify(booking);
         booking.status();
-        clearInterval(intervalID);
-        intervalID = setInterval("booking.update();", 1000);
         $('#canvas_container').slideUp(400);
     });
 };
