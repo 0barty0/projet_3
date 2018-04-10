@@ -262,4 +262,13 @@ window.onload = function () {
         booking.status();
         $('#canvas_container').slideUp(400);
     });
+
+    $('#close_canvas').click(function () {
+        $('#fade').fadeOut(400);
+        $('#canvas_container').fadeOut(400);
+    });
+    $('#fade').click(function () {
+        $('#fade').fadeOut(400);
+        $('#canvas_container').fadeOut(400);
+    });
 };
