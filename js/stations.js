@@ -47,7 +47,9 @@ class Booking {
             $('#booking' + number + ' p').text('Votre réservation à la station ' + this.name + ' a expirée.');
             sessionStorage.removeItem('booking');
             setTimeout(function () {
-                $('#booking' + number).remove();
+                $('#booking' + number).fadeOut(400, function () {
+                    this.remove();
+                });
             }, 4000);
         }
     }
@@ -58,7 +60,9 @@ class Booking {
         $('#booking' + number + ' p').text('Votre réservation à la station ' + this.name + ' est annulée.');
 
         setTimeout(function () {
-            $('#booking' + number).remove();
+            $('#booking' + number).fadeOut(400, function () {
+                this.remove();
+            });
         }, 4000);
 
         sessionStorage.removeItem('booking');
