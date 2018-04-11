@@ -79,6 +79,7 @@ header h1 {
     top: 50%;
     left: 0;
     cursor: pointer;
+    visibility: hidden;
 }
 
 #next_control {

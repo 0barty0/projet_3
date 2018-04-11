@@ -146,8 +146,9 @@ class Canvas {
     }
 }
 
-var stationsMarkers = [],
-    station, intervalID, counter, booking;
+var nb_slide = 1,
+    stationsMarkers = [],
+    station, intervalID, booking;
 
 
 
@@ -200,6 +201,56 @@ window.onload = function () {
         booking.getSessionStorage();
         booking.status();
     }
+
+    // Slider
+    switch (nb_slide) {
+        case 1:
+            $('#previous_control').css('visibility', 'hidden');
+            break;
+        case 4:
+            $('#next_control').css('visibility', 'hidden');
+            break;
+        default:
+            $('#previous_control').css('visibility', 'visible');
+            $('#next_control').css('visibility', 'visible');
+    }
+
+    $('#previous_control').click(function () {
+        $('#slide' + nb_slide).fadeOut(500, function () {
+            nb_slide--;
+            $('#slide' + nb_slide).fadeIn(500);
+            switch (nb_slide) {
+                case 1:
+                    $('#previous_control').css('visibility', 'hidden');
+                    break;
+                case 4:
+                    $('#next_control').css('visibility', 'hidden');
+                    break;
+                default:
+                    $('#previous_control').css('visibility', 'visible');
+                    $('#next_control').css('visibility', 'visible');
+            }
+        });
+    });
+
+    $('#next_control').click(function () {
+        $('#slide' + nb_slide).fadeOut(500, function () {
+            nb_slide++;
+            $('#slide' + nb_slide).fadeIn(500);
+            switch (nb_slide) {
+                case 1:
+                    $('#previous_control').css('visibility', 'hidden');
+                    break;
+                case 4:
+                    $('#next_control').css('visibility', 'hidden');
+                    break;
+                default:
+                    $('#previous_control').css('visibility', 'visible');
+                    $('#next_control').css('visibility', 'visible');
+            }
+        });
+
+    });
 
     var stations;
     // Recovery of the stations list
