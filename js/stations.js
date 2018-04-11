@@ -64,6 +64,19 @@ class Booking {
         sessionStorage.removeItem('booking');
 
     }
+    setSessionStorage() {
+        sessionStorage.booking = JSON.stringify({
+            'number': this.number,
+            'name': this.name,
+            'time': this.time
+        });
+    }
+    getSessionStorage() {
+        var booking = JSON.parse(sessionStorage.booking);
+        this.number = booking.number;
+        this.name = booking.name;
+        this.time = booking.time;
+    }
 }
 
 class Canvas {
@@ -179,9 +192,8 @@ function stationStatus(number) {
 window.onload = function () {
     // Recovery of the last booking
     if (sessionStorage.length > 0) {
-        var storedBooking = JSON.parse(sessionStorage.booking);
-        booking = new Booking(storedBooking.number, storedBooking.name);
-        booking.time = storedBooking.time;
+        booking = new Booking();
+        booking.getSessionStorage();
         booking.status();
     }
 
@@ -258,7 +270,7 @@ window.onload = function () {
         $('#booking_panel').html('');
 
         booking = new Booking(station.number, station.name);
-        sessionStorage.booking = JSON.stringify(booking);
+        booking.setSessionStorage();
         booking.status();
         $('#canvas_container').slideUp(400);
     });
