@@ -95,8 +95,8 @@ class Canvas {
         // Event listeners
         var canvas = this;
         $('#canvas').mousedown(function (e) {
-            var mouseX = e.pageX - this.parentNode.offsetLeft - this.offsetLeft - pageXOffset;
-            var mouseY = e.pageY - this.parentNode.offsetTop - this.offsetTop - pageYOffset;
+            var mouseX = e.clientX - this.parentNode.offsetLeft - this.offsetLeft;
+            var mouseY = e.clientY - this.parentNode.offsetTop - this.offsetTop;
 
             canvas.paint = true;
             canvas.addClick(mouseX, mouseY);
@@ -105,8 +105,8 @@ class Canvas {
 
         $('#canvas').mousemove(function (e) {
             if (canvas.paint) {
-                var mouseX = e.pageX - this.parentNode.offsetLeft - this.offsetLeft - pageXOffset;
-                var mouseY = e.pageY - this.parentNode.offsetTop - this.offsetTop - pageYOffset;
+                var mouseX = e.clientX - this.parentNode.offsetLeft - this.offsetLeft;
+                var mouseY = e.clientY - this.parentNode.offsetTop - this.offsetTop;
                 canvas.addClick(mouseX, mouseY, true);
                 canvas.redraw();
             }
