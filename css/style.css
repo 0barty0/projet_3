@@ -83,8 +83,11 @@ header h1 {
     height: 400px;
     left: 200px;
     top: 0;
-    border: 2px solid black;
-    background-color: #fff;
+    background-color: #eceeef;
+    border: 8px solid #eca400;
+    border-radius: 20px;
+    -webkit-box-shadow: 5px 5px 3px #000;
+    box-shadow: 5px 5px 3px #000;
     -webkit-transition: all 500ms ease;
     transition: all 500ms ease;
 }

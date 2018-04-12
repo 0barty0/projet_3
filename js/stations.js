@@ -231,8 +231,6 @@ window.onload = function () {
     }
 
     // Slider
-    updateSlides();
-
     $('#next_control').click(function () {
         slidesLeft.unshift(slide);
         slide = slidesRight.shift();
