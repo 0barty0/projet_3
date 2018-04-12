@@ -58,7 +58,7 @@ header h1 {
 
 #slider_container {
     width: 800px;
-    height: 500px;
+    height: 370px;
     position: relative;
     -webkit-perspective: 1000px;
     perspective: 1000px;
@@ -80,7 +80,7 @@ header h1 {
     display: block;
     position: absolute;
     width: 400px;
-    height: 400px;
+    height: 300px;
     left: 200px;
     top: 0;
     background-color: #eceeef;
@@ -90,6 +90,22 @@ header h1 {
     box-shadow: 5px 5px 3px #000;
     -webkit-transition: all 500ms ease;
     transition: all 500ms ease;
+}
+
+#slider div h2 {
+    font-family: alex_brushregular;
+    font-size: 2em;
+    text-align: center;
+    background-color: #eca400;
+    color: #001d4a;
+    margin: 0;
+    padding: 0.5em;
+}
+
+#slider div p {
+    font-size: 1.2em;
+    padding: 0 2em;
+    text-align: justify;
 }
 
 .right1 {
