@@ -146,11 +146,39 @@ class Canvas {
     }
 }
 
-var nb_slide = 1,
+var slide = 1,
+    slidesLeft = [],
+    slidesRight = [2, 3, 4, 5],
     stationsMarkers = [],
     station, intervalID, booking;
 
+function updateNav() {
+    switch (slide) {
+        case 1:
+            $('#previous_control').css('visibility', 'hidden');
+            break;
+        case 5:
+            $('#next_control').css('visibility', 'hidden');
+            break;
+        default:
+            $('#previous_control').css('visibility', 'visible');
+            $('#next_control').css('visibility', 'visible');
+    }
+}
 
+function updateSlides() {
+    slidesLeft.forEach(function (nbSlide, index) {
+        $('#slide' + nbSlide).removeClass();
+        $('#slide' + nbSlide).addClass('left' + (index + 1));
+    });
+
+    slidesRight.forEach(function (nbSlide, index) {
+        $('#slide' + nbSlide).removeClass();
+        $('#slide' + nbSlide).addClass('right' + (index + 1));
+    });
+
+    $('#slide' + slide).removeClass();
+}
 
 function stationStatus(number) {
 
@@ -203,53 +231,20 @@ window.onload = function () {
     }
 
     // Slider
-    switch (nb_slide) {
-        case 1:
-            $('#previous_control').css('visibility', 'hidden');
-            break;
-        case 4:
-            $('#next_control').css('visibility', 'hidden');
-            break;
-        default:
-            $('#previous_control').css('visibility', 'visible');
-            $('#next_control').css('visibility', 'visible');
-    }
-
-    $('#previous_control').click(function () {
-        $('#slide' + nb_slide).fadeOut(500, function () {
-            nb_slide--;
-            $('#slide' + nb_slide).fadeIn(500);
-            switch (nb_slide) {
-                case 1:
-                    $('#previous_control').css('visibility', 'hidden');
-                    break;
-                case 4:
-                    $('#next_control').css('visibility', 'hidden');
-                    break;
-                default:
-                    $('#previous_control').css('visibility', 'visible');
-                    $('#next_control').css('visibility', 'visible');
-            }
-        });
-    });
+    updateSlides();
 
     $('#next_control').click(function () {
-        $('#slide' + nb_slide).fadeOut(500, function () {
-            nb_slide++;
-            $('#slide' + nb_slide).fadeIn(500);
-            switch (nb_slide) {
-                case 1:
-                    $('#previous_control').css('visibility', 'hidden');
-                    break;
-                case 4:
-                    $('#next_control').css('visibility', 'hidden');
-                    break;
-                default:
-                    $('#previous_control').css('visibility', 'visible');
-                    $('#next_control').css('visibility', 'visible');
-            }
-        });
+        slidesLeft.unshift(slide);
+        slide = slidesRight.shift();
+        updateSlides();
+        updateNav();
+    });
 
+    $('#previous_control').click(function () {
+        slidesRight.unshift(slide);
+        slide = slidesLeft.shift();
+        updateSlides();
+        updateNav();
     });
 
     var stations;

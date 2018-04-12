@@ -52,41 +52,118 @@ header h1 {
 
 /*********** Slider ***********/
 
-#slider_container {
+#presentation {
     margin: 10vh 0;
 }
 
-#slider {
-    width: 35%;
-    height: 50vh;
-    margin: auto;
+#slider_container {
+    width: 800px;
+    height: 500px;
     position: relative;
+    -webkit-perspective: 1000px;
+    perspective: 1000px;
+    margin: 50px auto;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
-.slide {
-    display: none;
+#slider {
     width: 100%;
     height: 100%;
-    border: 1px solid #000;
+    position: relative;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
 }
 
-.slide:first-child {
+#slider div {
+    margin: 0;
     display: block;
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    left: 200px;
+    top: 0;
+    border: 2px solid black;
+    background-color: #fff;
+    -webkit-transition: all 500ms ease;
+    transition: all 500ms ease;
+}
+
+.right1 {
+    -webkit-transform: translateX(200px) translateZ(-50px) rotateY(-60deg);
+    transform: translateX(200px) translateZ(-50px) rotateY(-60deg);
+    -webkit-filter: blur(3px);
+    filter: blur(3px);
+}
+
+.right2 {
+    -webkit-transform: translateX(250px) translateZ(-100px) rotateY(-60deg);
+    transform: translateX(250px) translateZ(-100px) rotateY(-60deg);
+    -webkit-filter: blur(3px);
+    filter: blur(3px);
+}
+
+.right3 {
+    -webkit-transform: translateX(300px) translateZ(-150px) rotateY(-60deg);
+    transform: translateX(300px) translateZ(-150px) rotateY(-60deg);
+    -webkit-filter: blur(3px);
+    filter: blur(3px);
+}
+
+.right4 {
+    -webkit-transform: translateX(350px) translateZ(-200px) rotateY(-60deg);
+    transform: translateX(350px) translateZ(-200px) rotateY(-60deg);
+    -webkit-filter: blur(3px);
+    filter: blur(3px);
+}
+
+.left1 {
+    -webkit-transform: translateX(-200px) translateZ(-50px) rotateY(60deg);
+    transform: translateX(-200px) translateZ(-50px) rotateY(60deg);
+    -webkit-filter: blur(3px);
+    filter: blur(3px);
+}
+
+.left2 {
+    -webkit-transform: translateX(-250px) translateZ(-100px) rotateY(60deg);
+    transform: translateX(-250px) translateZ(-100px) rotateY(60deg);
+    -webkit-filter: blur(3px);
+    filter: blur(3px);
+}
+
+.left3 {
+    -webkit-transform: translateX(-300px) translateZ(-150px) rotateY(60deg);
+    transform: translateX(-300px) translateZ(-150px) rotateY(60deg);
+    -webkit-filter: blur(3px);
+    filter: blur(3px);
+}
+
+.left4 {
+    -webkit-transform: translateX(-350px) translateZ(-200px) rotateY(60deg);
+    transform: translateX(-350px) translateZ(-200px) rotateY(60deg);
+    -webkit-filter: blur(3px);
+    filter: blur(3px);
+}
+
+#controls {
+    width: 50%;
+    position: absolute;
+    left: 25%;
+    bottom: 0;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    cursor: pointer;
 }
 
 #previous_control {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    cursor: pointer;
     visibility: hidden;
-}
-
-#next_control {
-    position: absolute;
-    top: 50%;
-    right: 0;
-    cursor: pointer;
 }
 
 /*********** Map ***********/
