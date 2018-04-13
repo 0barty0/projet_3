@@ -78,7 +78,7 @@ header h1 {
   -webkit-transition: all 500ms ease;
   transition: all 500ms ease;
 }
-#slider div h2 {
+#slider h2 {
   font-family: alex_brushregular;
   font-size: 2em;
   text-align: center;
@@ -87,7 +87,7 @@ header h1 {
   margin: 0;
   padding: 0.5em;
 }
-#slider div p {
+#slider p {
   font-size: 1.2em;
   padding: 0 2em;
   text-align: justify;
@@ -174,13 +174,13 @@ header h1 {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
+#info_station h2 {
+  margin: 0;
+}
 #station_title {
   background-color: #eca400;
   color: #001d4a;
   padding: 1em;
-}
-#info_station h2 {
-  margin: 0;
 }
 #station_details {
   padding: 1em;
@@ -257,19 +257,19 @@ header h1 {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
-#close_canvas {
-  color: #001d4a;
-  position: absolute;
-  top: 0;
-  right: 0;
-  cursor: pointer;
-}
 #canvas_container h2 {
   background-color: #eca400;
   color: #001d4a;
   text-align: center;
   margin-top: 0;
   padding: 1em;
+}
+#close_canvas {
+  color: #001d4a;
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
 }
 #canvas {
   border: 1px solid #000;

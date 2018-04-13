@@ -42,14 +42,13 @@ header {
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;
-}
-
-header h1 {
-    font-family: alex_brushregular, Arial, sans-serif;
-    font-size: 4em;
-    color: @orange;
-    width: 30vw;
-    margin: 0;
+    h1 {
+        font-family: alex_brushregular, Arial, sans-serif;
+        font-size: 4em;
+        color: @orange;
+        width: 30vw;
+        margin: 0;
+    }
 }
 
 #logo {
@@ -79,39 +78,38 @@ header h1 {
     position: relative;
     -webkit-transform-style: preserve-3d;
     transform-style: preserve-3d;
-}
 
-#slider div {
-    margin: 0;
-    display: block;
-    position: absolute;
-    width: 400px;
-    height: 300px;
-    left: 200px;
-    top: 0;
-    background-color: #eceeef;
-    border: 8px solid #eca400;
-    border-radius: 20px;
-    -webkit-box-shadow: 5px 5px 3px #000;
-    box-shadow: 5px 5px 3px #000;
-    -webkit-transition: all 500ms ease;
-    transition: all 500ms ease;
-}
+    div {
+        margin: 0;
+        display: block;
+        position: absolute;
+        width: 400px;
+        height: 300px;
+        left: 200px;
+        top: 0;
+        background-color: #eceeef;
+        border: 8px solid #eca400;
+        border-radius: 20px;
+        -webkit-box-shadow: 5px 5px 3px #000;
+        box-shadow: 5px 5px 3px #000;
+        -webkit-transition: all 500ms ease;
+        transition: all 500ms ease;
+    }
 
-#slider div h2 {
-    font-family: alex_brushregular;
-    font-size: 2em;
-    text-align: center;
-    background-color: @orange;
-    color: @dark_blue;
-    margin: 0;
-    padding: 0.5em;
-}
-
-#slider div p {
-    font-size: 1.2em;
-    padding: 0 2em;
-    text-align: justify;
+    h2 {
+        font-family: alex_brushregular;
+        font-size: 2em;
+        text-align: center;
+        background-color: @orange;
+        color: @dark_blue;
+        margin: 0;
+        padding: 0.5em;
+    }
+    p {
+        font-size: 1.2em;
+        padding: 0 2em;
+        text-align: justify;
+    }
 }
 
 .make-right(@i: 1) when (@i =< 4) {
@@ -190,16 +188,16 @@ header h1 {
     box-shadow: 5px 5px 3px #000;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
+
+    h2 {
+        margin: 0;
+    }
 }
 
 #station_title {
     background-color: @orange;
     color: @dark_blue;
     padding: 1em;
-}
-
-#info_station h2 {
-    margin: 0;
 }
 
 #station_details {
@@ -243,10 +241,10 @@ header h1 {
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;
-}
 
-.booking p {
-    width: 80%;
+    p {
+        width: 80%;
+    }
 }
 
 #cancel_btn {
@@ -285,6 +283,14 @@ header h1 {
     box-shadow: 5px 5px 3px #000;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
+
+    h2 {
+        background-color: @orange;
+        color: @dark_blue;
+        text-align: center;
+        margin-top: 0;
+        padding: 1em;
+    }
 }
 
 #close_canvas {
@@ -293,14 +299,6 @@ header h1 {
     top: 0;
     right: 0;
     cursor: pointer;
-}
-
-#canvas_container h2 {
-    background-color: @orange;
-    color: @dark_blue;
-    text-align: center;
-    margin-top: 0;
-    padding: 1em;
 }
 
 #canvas {
