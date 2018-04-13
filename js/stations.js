@@ -222,6 +222,13 @@ function stationStatus(number) {
     };
 }
 
+function toggleBounce(marker) {
+    for (var i = 0; i < stationsMarkers.length; i++) {
+        stationsMarkers[i].setAnimation(null);
+    }
+    marker.setAnimation(google.maps.Animation.BOUNCE);
+}
+
 window.onload = function () {
     // Recovery of the last booking
     if (sessionStorage.length > 0) {
@@ -271,6 +278,7 @@ window.onload = function () {
             // On click display the station status
             google.maps.event.addListener(marker, 'click', function () {
                 stationStatus(this.number);
+                toggleBounce(this);
             });
             marker.number = station['number'];
             stationsMarkers.push(marker);
