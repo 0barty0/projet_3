@@ -5,21 +5,20 @@ class Booking {
         this.time = Date.now();
     }
     status() {
-        var counter = 1200 - Math.floor((Date.now() - this.time) / 1000);
+        let counter = 1200 - Math.floor((Date.now() - this.time) / 1000);
 
         if (counter > 0) {
-            var minutes = Math.floor(counter / 60);
-            var seconds = counter - minutes * 60;
-
-            var pContainer = $('<div></div>').attr('id', 'booking' + this.number).addClass('booking');
-            var pElmt = $('<p></p>');
-            var spanElmt = $('<span></span>').attr('id', 'counter');
-            var cancelBtn = $('<button>Annuler</button>').addClass('btn').attr('id', 'cancel_btn');
+            let minutes = Math.floor(counter / 60),
+                seconds = counter - minutes * 60,
+                pContainer = $('<div></div>').attr('id', 'booking' + this.number).addClass('booking'),
+                pElmt = $('<p></p>'),
+                spanElmt = $('<span></span>').attr('id', 'counter'),
+                cancelBtn = $('<button>Annuler</button>').addClass('btn').attr('id', 'cancel_btn');
 
             pElmt.html('1 vélo réservé à la station ' + this.name + '<br/> pour ');
             spanElmt.text(minutes + ' min ' + seconds + ' s');
 
-            var booking = this;
+            let booking = this;
             cancelBtn.click(function () {
                 booking.cancel();
             });
@@ -35,10 +34,10 @@ class Booking {
         }
     }
     update() {
-        var number = this.number;
-        var counter = 1200 - Math.floor((Date.now() - this.time) / 1000);
-        var minutes = Math.floor(counter / 60);
-        var seconds = counter - minutes * 60;
+        let number = this.number,
+            counter = 1200 - Math.floor((Date.now() - this.time) / 1000),
+            minutes = Math.floor(counter / 60),
+            seconds = counter - minutes * 60;
         $('#counter').text(minutes + ' min ' + seconds + ' s');
 
         if (counter <= 0) {
@@ -55,7 +54,7 @@ class Booking {
     }
     cancel() {
         clearInterval(intervalID);
-        var number = this.number;
+        let number = this.number;
         $('#cancel_btn').remove();
         $('#booking' + number + ' p').text('Votre réservation à la station ' + this.name + ' est annulée.');
 
@@ -76,7 +75,7 @@ class Booking {
         });
     }
     getSessionStorage() {
-        var booking = JSON.parse(sessionStorage.booking);
+        let booking = JSON.parse(sessionStorage.booking);
         this.number = booking.number;
         this.name = booking.name;
         this.time = booking.time;
@@ -95,8 +94,8 @@ class Canvas {
         // Event listeners
         var canvas = this;
         $('#canvas').mousedown(function (e) {
-            var mouseX = e.clientX - this.parentNode.offsetLeft - this.offsetLeft;
-            var mouseY = e.clientY - this.parentNode.offsetTop - this.offsetTop;
+            let mouseX = e.clientX - this.parentNode.offsetLeft - this.offsetLeft;
+            let mouseY = e.clientY - this.parentNode.offsetTop - this.offsetTop;
 
             canvas.paint = true;
             canvas.addClick(mouseX, mouseY);
@@ -105,8 +104,8 @@ class Canvas {
 
         $('#canvas').mousemove(function (e) {
             if (canvas.paint) {
-                var mouseX = e.clientX - this.parentNode.offsetLeft - this.offsetLeft;
-                var mouseY = e.clientY - this.parentNode.offsetTop - this.offsetTop;
+                let mouseX = e.clientX - this.parentNode.offsetLeft - this.offsetLeft;
+                let mouseY = e.clientY - this.parentNode.offsetTop - this.offsetTop;
                 canvas.addClick(mouseX, mouseY, true);
                 canvas.redraw();
             }
@@ -131,7 +130,7 @@ class Canvas {
         this.context.lineJoin = "round";
         this.context.lineWidth = 5;
 
-        for (var i = 0; i < this.clickX.length; i++) {
+        for (let i = 0; i < this.clickX.length; i++) {
             this.context.beginPath();
 
             if (this.clickDrag[i] && i) {
@@ -183,8 +182,8 @@ function updateSlides() {
 function stationStatus(number) {
 
     // API REST JCDecaux
-    var reqUrl = "https://api.jcdecaux.com/vls/v1/stations/" + number + "?contract=lyon&apiKey=a077fde6a261a60b1653cd0462c51eb664a29501";
-    var reqStation = new XMLHttpRequest();
+    let reqUrl = "https://api.jcdecaux.com/vls/v1/stations/" + number + "?contract=lyon&apiKey=a077fde6a261a60b1653cd0462c51eb664a29501",
+        reqStation = new XMLHttpRequest();
     reqStation.open("get", reqUrl, true);
     reqStation.send();
     reqStation.onload = function () {
@@ -197,21 +196,21 @@ function stationStatus(number) {
             opacity: 1
         });
 
-        var index = station.name.indexOf('-');
+        let index = station.name.indexOf('-');
         station.name = station.name.slice(index + 1);
         $('#name_station').text(station.name);
         $('#address_station').text(station['address']);
 
-        var status = (station.status === 'OPEN') ? 'ouvert' : 'fermé';
+        let status = (station.status === 'OPEN') ? 'ouvert' : 'fermé';
         $('#status').text('État : ' + status);
 
-        var banking = (station.banking) ? 'oui' : 'non';
+        let banking = (station.banking) ? 'oui' : 'non';
         $('#banking').text('Terminal de paiement : ' + banking);
 
         $('#bike_stands').text(station.bike_stands + ' places');
         $('#available_bikes').text(station.available_bikes + ' vélos disponibles');
 
-        var lastUpdate = new Date(station.last_update);
+        let lastUpdate = new Date(station.last_update);
         $('#last_update').text('Mise à jour à : ' + lastUpdate.getHours() + 'h' + lastUpdate.getMinutes() + 'min' + lastUpdate.getSeconds() + 's');
 
         if (station.status === 'OPEN' && station.available_bikes > 0) {
@@ -223,7 +222,7 @@ function stationStatus(number) {
 }
 
 function toggleBounce(marker) {
-    for (var i = 0; i < stationsMarkers.length; i++) {
+    for (let i = 0; i < stationsMarkers.length; i++) {
         stationsMarkers[i].setAnimation(null);
     }
     marker.setAnimation(google.maps.Animation.BOUNCE);
@@ -252,14 +251,14 @@ window.onload = function () {
         updateNav();
     });
 
-    var stations;
     // Recovery of the stations list
-    var request = new XMLHttpRequest();
+    let stations,
+        request = new XMLHttpRequest();
     request.open('get', 'data/Lyon.json', true);
     request.send();
     request.onload = function () {
         stations = JSON.parse(this.responseText);
-        var bikeIcon = {
+        let bikeIcon = {
             url: 'data/bike.png',
             size: new google.maps.Size(40, 52),
             origin: new google.maps.Point(0, 0),
@@ -267,13 +266,13 @@ window.onload = function () {
         };
         // Add stations markers to the map
         stations.forEach(function (station) {
-            var latLng = new google.maps.LatLng(station['latitude'], station['longitude']);
-            var marker = new google.maps.Marker({
-                position: latLng,
-                map: map,
-                visible: false,
-                icon: bikeIcon
-            });
+            let latLng = new google.maps.LatLng(station['latitude'], station['longitude']),
+                marker = new google.maps.Marker({
+                    position: latLng,
+                    map: map,
+                    visible: false,
+                    icon: bikeIcon
+                });
 
             // On click display the station status
             google.maps.event.addListener(marker, 'click', function () {
@@ -285,26 +284,26 @@ window.onload = function () {
         });
 
         // Add markers clusterer
-        var clusterStyles = [
-            {
-                url: 'data/bike.png',
-                height: 52,
-                width: 40,
-                anchor: [27, 0],
-                textSize: 12
+        let clusterStyles = [
+                {
+                    url: 'data/bike.png',
+                    height: 52,
+                    width: 40,
+                    anchor: [27, 0],
+                    textSize: 12
             }
-        ]
-        var mcOptions = {
-            gridSize: 80,
-            styles: clusterStyles,
-            maxZoom: 14
-        }
-        var markerCluster = new MarkerClusterer(map, stationsMarkers, mcOptions);
+        ],
+            mcOptions = {
+                gridSize: 80,
+                styles: clusterStyles,
+                maxZoom: 14
+            },
+            markerCluster = new MarkerClusterer(map, stationsMarkers, mcOptions);
     };
 
     // Change markers on zoom
     google.maps.event.addListener(map, 'zoom_changed', function () {
-        var zoom = map.getZoom();
+        let zoom = map.getZoom();
         stationsMarkers.forEach(function (marker) {
             marker.setVisible(zoom >= 14);
         });
@@ -314,7 +313,7 @@ window.onload = function () {
     $('#booking_btn').click(function () {
         $('#fade').fadeIn(400);
         $('#canvas_container').fadeIn(400);
-        var canvas = new Canvas();
+        let canvas = new Canvas();
     });
 
     // Confirm button
