@@ -93,51 +93,35 @@ header h1 {
   text-align: justify;
 }
 .right1 {
-  -webkit-transform: translateX(200px) translateZ(-50px) rotateY(-60deg);
   transform: translateX(200px) translateZ(-50px) rotateY(-60deg);
-  -webkit-filter: blur(3px);
   filter: blur(3px);
 }
 .right2 {
-  -webkit-transform: translateX(250px) translateZ(-100px) rotateY(-60deg);
   transform: translateX(250px) translateZ(-100px) rotateY(-60deg);
-  -webkit-filter: blur(3px);
   filter: blur(3px);
 }
 .right3 {
-  -webkit-transform: translateX(300px) translateZ(-150px) rotateY(-60deg);
   transform: translateX(300px) translateZ(-150px) rotateY(-60deg);
-  -webkit-filter: blur(3px);
   filter: blur(3px);
 }
 .right4 {
-  -webkit-transform: translateX(350px) translateZ(-200px) rotateY(-60deg);
   transform: translateX(350px) translateZ(-200px) rotateY(-60deg);
-  -webkit-filter: blur(3px);
   filter: blur(3px);
 }
 .left1 {
-  -webkit-transform: translateX(-200px) translateZ(-50px) rotateY(60deg);
   transform: translateX(-200px) translateZ(-50px) rotateY(60deg);
-  -webkit-filter: blur(3px);
   filter: blur(3px);
 }
 .left2 {
-  -webkit-transform: translateX(-250px) translateZ(-100px) rotateY(60deg);
   transform: translateX(-250px) translateZ(-100px) rotateY(60deg);
-  -webkit-filter: blur(3px);
   filter: blur(3px);
 }
 .left3 {
-  -webkit-transform: translateX(-300px) translateZ(-150px) rotateY(60deg);
   transform: translateX(-300px) translateZ(-150px) rotateY(60deg);
-  -webkit-filter: blur(3px);
   filter: blur(3px);
 }
 .left4 {
-  -webkit-transform: translateX(-350px) translateZ(-200px) rotateY(60deg);
   transform: translateX(-350px) translateZ(-200px) rotateY(60deg);
-  -webkit-filter: blur(3px);
   filter: blur(3px);
 }
 #controls {

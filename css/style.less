@@ -114,61 +114,27 @@ header h1 {
     text-align: justify;
 }
 
-.right1 {
-    -webkit-transform: translateX(200px) translateZ(-50px) rotateY(-60deg);
-    transform: translateX(200px) translateZ(-50px) rotateY(-60deg);
-    -webkit-filter: blur(3px);
-    filter: blur(3px);
+.make-right(@i: 1) when (@i =< 4) {
+    .right@{i} {
+        transform: translateX(150px+@i*50px) translateZ(-50px*@i) rotateY(-60deg);
+        filter: blur(3px);
+    }
+    .make-right(@i + 1);
 }
 
-.right2 {
-    -webkit-transform: translateX(250px) translateZ(-100px) rotateY(-60deg);
-    transform: translateX(250px) translateZ(-100px) rotateY(-60deg);
-    -webkit-filter: blur(3px);
-    filter: blur(3px);
+.make-right();
+
+.make-left(@i: 1) when (@i =< 4) {
+    .left@{i} {
+        transform: translateX(-150px-@i*50px) translateZ(-50px*@i) rotateY(60deg);
+        filter: blur(3px);
+    }
+    .make-left(@i + 1);
 }
 
-.right3 {
-    -webkit-transform: translateX(300px) translateZ(-150px) rotateY(-60deg);
-    transform: translateX(300px) translateZ(-150px) rotateY(-60deg);
-    -webkit-filter: blur(3px);
-    filter: blur(3px);
-}
+.make-left();
 
-.right4 {
-    -webkit-transform: translateX(350px) translateZ(-200px) rotateY(-60deg);
-    transform: translateX(350px) translateZ(-200px) rotateY(-60deg);
-    -webkit-filter: blur(3px);
-    filter: blur(3px);
-}
 
-.left1 {
-    -webkit-transform: translateX(-200px) translateZ(-50px) rotateY(60deg);
-    transform: translateX(-200px) translateZ(-50px) rotateY(60deg);
-    -webkit-filter: blur(3px);
-    filter: blur(3px);
-}
-
-.left2 {
-    -webkit-transform: translateX(-250px) translateZ(-100px) rotateY(60deg);
-    transform: translateX(-250px) translateZ(-100px) rotateY(60deg);
-    -webkit-filter: blur(3px);
-    filter: blur(3px);
-}
-
-.left3 {
-    -webkit-transform: translateX(-300px) translateZ(-150px) rotateY(60deg);
-    transform: translateX(-300px) translateZ(-150px) rotateY(60deg);
-    -webkit-filter: blur(3px);
-    filter: blur(3px);
-}
-
-.left4 {
-    -webkit-transform: translateX(-350px) translateZ(-200px) rotateY(60deg);
-    transform: translateX(-350px) translateZ(-200px) rotateY(60deg);
-    -webkit-filter: blur(3px);
-    filter: blur(3px);
-}
 
 #controls {
     width: 50%;
