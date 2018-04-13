@@ -16,7 +16,7 @@
         <figure><img id="logo" src="data/logo.png" alt="Véloloc logo"></figure>
     </header>
 
-    <section id="presentation">
+    <div id="presentation">
         <div id="slider_container">
             <div id="slider">
                 <div id="slide1">
@@ -50,9 +50,9 @@
                 <div id="next_control"><i class="fa fa-2x fa-chevron-right"></i></div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <section id="map_container">
+    <div id="map_container">
         <div id="map"></div>
         <div id="info_station">
             <div id="station_title">
@@ -68,9 +68,9 @@
                 <button id="booking_btn" class="btn">Réserver</button>
             </div>
         </div>
-    </section>
-    <section id="booking_panel">
-    </section>
+    </div>
+    <div id="booking_panel">
+    </div>
 
     <div id="fade"></div>
     <div id="canvas_container">
@@ -81,12 +81,12 @@
         <canvas id="canvas" width="250px" height="150px"></canvas>
         <button id="confirm_btn" class="btn">Confirmer</button>
     </div>
-</body>
 
-<script src="js/initMap.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDega0jBUyJN4qTKOYUKMD5joUTDe_i9LM&callback=initMap" async defer></script>
-<script src="js/markerclusterer.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="js/stations.js"></script>
+    <script src="js/initMap.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDega0jBUyJN4qTKOYUKMD5joUTDe_i9LM&callback=initMap" async defer></script>
+    <script src="js/markerclusterer.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="js/stations.js"></script>
+</body>
 
 </html>
