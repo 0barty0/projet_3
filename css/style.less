@@ -42,6 +42,7 @@ header {
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;
+    align-items: center;
     h1 {
         font-family: alex_brushregular, Arial, sans-serif;
         font-size: 4em;
@@ -63,6 +64,7 @@ header {
 
 #slider_container {
     max-width: 1200px;
+    width: 90vw;
     height: 50vh;
     position: relative;
     -webkit-perspective: 1000px;
@@ -168,11 +170,13 @@ header {
     display: flex;
     -ms-flex-pack: distribute;
     justify-content: space-around;
+    flex-wrap: wrap;
+    align-content: space-between;
 }
 
 #map {
     width: 70vw;
-    height: 70vh;
+    height: 40vw;
     -webkit-box-shadow: 5px 5px 3px #000;
     box-shadow: 5px 5px 3px #000;
 }
@@ -181,7 +185,6 @@ header {
     opacity: 0;
     background-color: @white;
     width: 25vw;
-    min-height: 70vh;
     border: 8px solid @orange;
     border-radius: 20px;
     -webkit-box-shadow: 5px 5px 3px #000;
@@ -229,7 +232,7 @@ header {
 }
 
 .booking {
-    width: 50vw;
+    width: 70%;
     background-color: @dark_blue;
     color: @white;
     font-size: 1.4em;
@@ -248,6 +251,8 @@ header {
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;
+    flex-wrap: wrap;
+    box-sizing: border-box;
 
     p {
         width: 80%;
@@ -321,6 +326,11 @@ header {
 /***** Media queries *****/
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
+
+    #slider_container {
+        height: 60vh;
+    }
+
     #slider {
         width: 100%;
         height: 80%;
@@ -330,14 +340,36 @@ header {
             left: 25%;
         }
     }
+
+    #map {
+        width: 60vw;
+        height: 60vw;
+    }
+
+    #info_station {
+        width: 30vw;
+    }
 }
 
 @media only screen and (min-width: 480px) and (max-width: 767px) {
+
+    header h1 {
+        font-size: 2em;
+        min-width: 30vw;
+        margin: 0;
+    }
+
+    #logo {
+        width: 50px;
+    }
+
+
     #slider {
         width: 100%;
         div {
-            width: 80%;
-            left: 10%;
+            width: 100%;
+            left: 0;
+            box-sizing: border-box;
         }
     }
 
@@ -362,9 +394,42 @@ header {
     }
 
     .make-left();
+
+    #map {
+        width: 90vw;
+        height: 90vw;
+    }
+
+    #info_station {
+        width: 50vw;
+        min-height: 30vh;
+        margin-top: 2em;
+    }
+
+    #booking_panel {
+        width: 100vwr;
+    }
+
+    .booking {
+        width: 100%;
+        margin: 0;
+        p {
+            width: 100%;
+        }
+    }
 }
 
 @media only screen and (min-width: 320px) and (max-width: 479px) {
+    header h1 {
+        font-size: 2em;
+        min-width: 30vw;
+        margin: 0;
+    }
+
+    #logo {
+        width: 50px;
+    }
+
     #presentation {
         margin: 5vh 0;
     }
@@ -377,8 +442,9 @@ header {
     #slider {
         width: 100%;
         div {
-            width: 90%;
-            left: 5%;
+            width: 100%;
+            left: 0;
+            box-sizing: border-box;
         }
     }
 
@@ -403,4 +469,27 @@ header {
     }
 
     .make-left();
+
+    #map {
+        width: 90vw;
+        height: 90vw;
+    }
+
+    #info_station {
+        width: 90vw;
+        min-height: 30vh;
+        margin-top: 2em;
+    }
+
+    #booking_panel {
+        width: 100vw;
+    }
+
+    .booking {
+        width: 100%;
+        margin: 0;
+        p {
+            width: 100%;
+        }
+    }
 }

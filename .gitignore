@@ -3,20 +3,4 @@
 # Example .gitignore files: https://github.com/github/gitignore
 /bower_components/
 /node_modules/
-/data/Lyon.json
-/data/bike.png
-/data/font/sourcesanspro-bold-webfont.woff2
-/data/font/sourcesanspro-bold-webfont.woff
-/data/font/sourcesanspro-it-webfont.ttf
-/data/font/sourcesanspro-it-webfont.woff
-/data/font/sourcesanspro-it-webfont.woff2
-/data/font/sourcesanspro-regular-webfont.ttf
-/data/font/sourcesanspro-regular-webfont.woff
-/data/font/sourcesanspro-regular-webfont.woff2
-/undefined
-/data/font/AlexBrush-Regular.ttf
-/data/font/alexbrush-regular-webfont.woff
-/data/font/alexbrush-regular-webfont.woff2
-/data/font/stylesheet.css
-/data/favicon.ico
-/data/logo.png
+/data/
