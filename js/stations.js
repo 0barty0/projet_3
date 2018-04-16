@@ -16,7 +16,7 @@ class Booking {
             var spanElmt = $('<span></span>').attr('id', 'counter');
             var cancelBtn = $('<button>Annuler</button>').addClass('btn').attr('id', 'cancel_btn');
 
-            pElmt.html('1 vélo réservé à la station ' + this.name + '<br/> pour ');
+            pElmt.html('1 vélo réservé à la station ' + this.name + ' pour &shy;');
             spanElmt.text(minutes + ' min ' + seconds + ' s');
 
             var booking = this;
