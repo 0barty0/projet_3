@@ -85,6 +85,7 @@ class Booking {
 class Canvas {
     constructor() {
         this.context = document.getElementById('canvas').getContext('2d');
+        this.offSet = $('#canvas').offset();
         this.clickX = new Array();
         this.clickY = new Array();
         this.clickDrag = new Array();
@@ -94,9 +95,8 @@ class Canvas {
         // Event listeners
         var canvas = this;
         $('#canvas').mousedown(function (e) {
-            let mouseX = e.clientX - this.parentNode.offsetLeft - this.offsetLeft;
-            let mouseY = e.clientY - this.parentNode.offsetTop - this.offsetTop;
-
+            let mouseX = e.pageX - canvas.offSet.left,
+                mouseY = e.pageY - canvas.offSet.top;
             canvas.paint = true;
             canvas.addClick(mouseX, mouseY);
             canvas.redraw();
@@ -104,8 +104,8 @@ class Canvas {
 
         $('#canvas').mousemove(function (e) {
             if (canvas.paint) {
-                let mouseX = e.clientX - this.parentNode.offsetLeft - this.offsetLeft;
-                let mouseY = e.clientY - this.parentNode.offsetTop - this.offsetTop;
+                let mouseX = e.pageX - canvas.offSet.left,
+                    mouseY = e.pageY - canvas.offSet.top;
                 canvas.addClick(mouseX, mouseY, true);
                 canvas.redraw();
             }
