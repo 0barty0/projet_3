@@ -236,7 +236,7 @@ function toggleBounce(marker) {
 
 window.onload = function () {
     // Recovery of the last booking
-    if (sessionStorage.length > 0) {
+    if (sessionStorage.getItem('booking')) {
         booking = new Booking();
         booking.getSessionStorage();
         booking.status();
