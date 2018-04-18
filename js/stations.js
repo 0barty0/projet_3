@@ -86,12 +86,14 @@ class Canvas {
     constructor() {
         this.context = document.getElementById('canvas').getContext('2d');
         this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height);
+        this.context.beginPath();
         this.context.stokeStyle = "#df4b26";
         this.context.lineJoin = "round";
-        this.context.lineWidth = 4;
+        this.context.lineWidth = 5;
         this.clickX = new Array();
         this.clickY = new Array();
         this.paint = false;
+        this.drag = false;
 
         // Event listeners
         var canvas = this;
@@ -101,6 +103,8 @@ class Canvas {
                 mouseY = e.pageY - offSet.top;
             canvas.paint = true;
             canvas.addClick(mouseX, mouseY);
+            canvas.draw();
+            canvas.drag = true;
         });
 
         $('#canvas').mousemove(function (e) {
@@ -115,10 +119,12 @@ class Canvas {
 
         $('#canvas').mouseup(function (e) {
             canvas.paint = false;
+            canvas.drag = false;
         });
 
         $('#canvas').mouseleave(function (e) {
             canvas.paint = false;
+            canvas.drag = false;
         });
 
         $('#canvas').on('touchstart', function (e) {
@@ -128,6 +134,8 @@ class Canvas {
                 mouseY = touch.pageY - offSet.top;
             canvas.paint = true;
             canvas.addClick(mouseX, mouseY);
+            canvas.draw();
+            canvas.drag = true;
         });
 
         $('#canvas').on('touchmove', function (e) {
@@ -144,6 +152,7 @@ class Canvas {
 
         $('#canvas').on('touchend', function (e) {
             canvas.paint = false;
+            canvas.drag = false;
         });
     }
     addClick(x, y) {
@@ -152,10 +161,10 @@ class Canvas {
     }
     draw() {
         let i = this.clickX.length - 1;
-        if (i) {
+        if (i && this.drag) {
             this.context.moveTo(this.clickX[i - 1], this.clickY[i - 1]);
         } else {
-            this.context.moveTo(this.clickX[i] - 1, this.clickY[i] - 1);
+            this.context.moveTo(this.clickX[i] - 2, this.clickY[i] - 2);
         }
         this.context.lineTo(this.clickX[i], this.clickY[i]);
         this.context.stroke();
