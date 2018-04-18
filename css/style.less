@@ -66,6 +66,7 @@ header {
     max-width: 1200px;
     width: 90vw;
     height: 50vh;
+    min-height: 350px;
     position: relative;
     -webkit-perspective: 1000px;
     perspective: 1000px;
@@ -322,6 +323,7 @@ header {
     border: 1px solid #000;
     display: block;
     margin: auto;
+    cursor: pointer;
 }
 
 #confirm_btn {
@@ -333,18 +335,40 @@ header {
 @media only screen and (min-width: 768px) and (max-width: 991px) {
 
     #slider_container {
-        height: 60vh;
+        height: 50vh;
     }
 
     #slider {
         width: 100%;
         height: 80%;
         div {
-            width: 50%;
+            width: 70%;
             height: 100%;
-            left: 25%;
+            left: 15%;
         }
     }
+
+    .make-right(@i: 1) when (@i =< 4) {
+        .right@{i} {
+            opacity: 0;
+            transform: none;
+            filter: none;
+        }
+        .make-right(@i + 1);
+    }
+
+    .make-right();
+
+    .make-left(@i: 1) when (@i =< 4) {
+        .left@{i} {
+            opacity: 0;
+            transform: none;
+            filter: none;
+        }
+        .make-left(@i + 1);
+    }
+
+    .make-left();
 
     #map {
         width: 60vw;
