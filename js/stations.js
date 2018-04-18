@@ -85,11 +85,13 @@ class Booking {
 class Canvas {
     constructor() {
         this.context = document.getElementById('canvas').getContext('2d');
+        this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height);
+        this.context.stokeStyle = "#df4b26";
+        this.context.lineJoin = "round";
+        this.context.lineWidth = 4;
         this.clickX = new Array();
         this.clickY = new Array();
-        this.clickDrag = new Array();
         this.paint = false;
-        this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height);
 
         // Event listeners
         var canvas = this;
@@ -99,7 +101,6 @@ class Canvas {
                 mouseY = e.pageY - offSet.top;
             canvas.paint = true;
             canvas.addClick(mouseX, mouseY);
-            canvas.redraw();
         });
 
         $('#canvas').mousemove(function (e) {
@@ -107,8 +108,8 @@ class Canvas {
                 let offSet = $('#canvas').offset(),
                     mouseX = e.pageX - offSet.left,
                     mouseY = e.pageY - offSet.top;
-                canvas.addClick(mouseX, mouseY, true);
-                canvas.redraw();
+                canvas.addClick(mouseX, mouseY);
+                canvas.draw();
             }
         });
 
@@ -127,7 +128,6 @@ class Canvas {
                 mouseY = touch.pageY - offSet.top;
             canvas.paint = true;
             canvas.addClick(mouseX, mouseY);
-            canvas.redraw();
         });
 
         $('#canvas').on('touchmove', function (e) {
@@ -137,8 +137,8 @@ class Canvas {
                     touch = e.touches[0],
                     mouseX = touch.pageX - offSet.left,
                     mouseY = touch.pageY - offSet.top;
-                canvas.addClick(mouseX, mouseY, true);
-                canvas.redraw();
+                canvas.addClick(mouseX, mouseY);
+                canvas.draw();
             }
         });
 
@@ -146,29 +146,19 @@ class Canvas {
             canvas.paint = false;
         });
     }
-    addClick(x, y, dragging) {
+    addClick(x, y) {
         this.clickX.push(x);
         this.clickY.push(y);
-        this.clickDrag.push(dragging);
     }
-    redraw() {
-        this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height);
-        this.context.stokeStyle = "#df4b26";
-        this.context.lineJoin = "round";
-        this.context.lineWidth = 5;
-
-        for (let i = 0; i < this.clickX.length; i++) {
-            this.context.beginPath();
-
-            if (this.clickDrag[i] && i) {
-                this.context.moveTo(this.clickX[i - 1], this.clickY[i - 1]);
-            } else {
-                this.context.moveTo(this.clickX[i] - 1, this.clickY[i] - 1);
-            }
-            this.context.lineTo(this.clickX[i], this.clickY[i]);
-            this.context.closePath();
-            this.context.stroke();
+    draw() {
+        let i = this.clickX.length - 1;
+        if (i) {
+            this.context.moveTo(this.clickX[i - 1], this.clickY[i - 1]);
+        } else {
+            this.context.moveTo(this.clickX[i] - 1, this.clickY[i] - 1);
         }
+        this.context.lineTo(this.clickX[i], this.clickY[i]);
+        this.context.stroke();
     }
 }
 
