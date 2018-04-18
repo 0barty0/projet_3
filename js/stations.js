@@ -118,6 +118,28 @@ class Canvas {
         $('#canvas').mouseleave(function (e) {
             canvas.paint = false;
         });
+
+
+        var canvasElmt = document.getElementById('#canvas');
+        canvasElmt.addEventListener('touchstart', function (e) {
+            let mouseX = e.pageX - canvas.offSet.left,
+                mouseY = e.pageY - canvas.offSet.top;
+            canvas.paint = true;
+            canvas.addClick(mouseX, mouseY);
+            canvas.redraw();
+        });
+
+        canvasElmt.addEventListener('touchmove', function (e) {
+            if (canvas.paint) {
+                let mouseX = e.pageX - canvas.offSet.left,
+                    mouseY = e.pageY - canvas.offSet.top;
+                canvas.addClick(mouseX, mouseY, true);
+                canvas.redraw();
+            }
+        });
+        canvasElmt.addEventListener('touchend', function (e) {
+            canvas.paint = false;
+        });
     }
     addClick(x, y, dragging) {
         this.clickX.push(x);
