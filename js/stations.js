@@ -85,7 +85,6 @@ class Booking {
 class Canvas {
     constructor() {
         this.context = document.getElementById('canvas').getContext('2d');
-        this.offSet = $('#canvas').offset();
         this.clickX = new Array();
         this.clickY = new Array();
         this.clickDrag = new Array();
@@ -95,8 +94,9 @@ class Canvas {
         // Event listeners
         var canvas = this;
         $('#canvas').mousedown(function (e) {
-            let mouseX = e.pageX - canvas.offSet.left,
-                mouseY = e.pageY - canvas.offSet.top;
+            let offSet = $('#canvas').offset(),
+                mouseX = e.pageX - offSet.left,
+                mouseY = e.pageY - offSet.top;
             canvas.paint = true;
             canvas.addClick(mouseX, mouseY);
             canvas.redraw();
@@ -104,8 +104,9 @@ class Canvas {
 
         $('#canvas').mousemove(function (e) {
             if (canvas.paint) {
-                let mouseX = e.pageX - canvas.offSet.left,
-                    mouseY = e.pageY - canvas.offSet.top;
+                let offSet = $('#canvas').offset(),
+                    mouseX = e.pageX - offSet.left,
+                    mouseY = e.pageY - offSet.top;
                 canvas.addClick(mouseX, mouseY, true);
                 canvas.redraw();
             }
@@ -119,25 +120,29 @@ class Canvas {
             canvas.paint = false;
         });
 
-
-        var canvasElmt = document.getElementById('#canvas');
-        canvasElmt.addEventListener('touchstart', function (e) {
-            let mouseX = e.pageX - canvas.offSet.left,
-                mouseY = e.pageY - canvas.offSet.top;
+        $('#canvas').on('touchstart', function (e) {
+            let offSet = $('#canvas').offset(),
+                touch = e.touches[0],
+                mouseX = touch.pageX - offSet.left,
+                mouseY = touch.pageY - offSet.top;
             canvas.paint = true;
             canvas.addClick(mouseX, mouseY);
             canvas.redraw();
         });
 
-        canvasElmt.addEventListener('touchmove', function (e) {
+        $('#canvas').on('touchmove', function (e) {
+            e.preventDefault();
             if (canvas.paint) {
-                let mouseX = e.pageX - canvas.offSet.left,
-                    mouseY = e.pageY - canvas.offSet.top;
+                let offSet = $('#canvas').offset(),
+                    touch = e.touches[0],
+                    mouseX = touch.pageX - offSet.left,
+                    mouseY = touch.pageY - offSet.top;
                 canvas.addClick(mouseX, mouseY, true);
                 canvas.redraw();
             }
         });
-        canvasElmt.addEventListener('touchend', function (e) {
+
+        $('#canvas').on('touchend', function (e) {
             canvas.paint = false;
         });
     }
