@@ -285,14 +285,13 @@ header {
 #canvas_container {
     display: none;
     position: relative;
-    width: 350px;
-    height: 350px;
+    width: 100vw;
+    height: 100vw;
     z-index: 99999;
     position: fixed;
     top: 50%;
-    left: 50%;
-    margin-top: -200px;
-    margin-left: -175px;
+    left: 0;
+    margin-top: -50vw;
     background-color: @white;
     border: 8px solid @orange;
     border-radius: 20px;
@@ -344,6 +343,15 @@ header {
     #info_station {
         width: 60vw;
     }
+
+    #canvas_container {
+        width: 350px;
+        height: 350px;
+        top: 50%;
+        left: 50%;
+        margin-top: -200px;
+        margin-left: -175px;
+    }
 }
 
 @media only screen and (min-width: 768px) {
@@ -351,18 +359,22 @@ header {
         width: 100px;
     }
 
-    #slider div {
-        width: 70%;
-        left: 15%;
-        border-radius: 20px;
+    #slider {
+        height: 80%;
+        div {
+            width: 70%;
+            left: 15%;
+            border-radius: 20px;
+        }
     }
+
     #map {
-        width: 60vw;
-        height: 60vw;
+        width: 90vw;
+        height: 90vw;
     }
 
     #info_station {
-        width: 30vw;
+        width: 80vw;
         border-radius: 20px;
     }
 }
@@ -372,13 +384,10 @@ header {
         font-size: 4em;
     }
 
-    #slider {
-        height: 80%;
-        div {
-            opacity: 1;
-            width: 40%;
-            left: 30%;
-        }
+    #slider div {
+        opacity: 1;
+        width: 40%;
+        left: 30%;
     }
 
     .make-right(@i: 1) when (@i =< 4) {
@@ -409,6 +418,7 @@ header {
     #info_station {
         display: block;
         width: 25vw;
+        margin-top: 0;
     }
 
     .booking {

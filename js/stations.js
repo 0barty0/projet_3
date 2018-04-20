@@ -218,7 +218,7 @@ function stationStatus(number) {
         $('#canvas_container').css('display', 'none');
 
         // Update station informations
-        if (window.innerWidth < 767) {
+        if (window.innerWidth < 992) {
 
             $('#info_station').fadeIn(400);
         }
