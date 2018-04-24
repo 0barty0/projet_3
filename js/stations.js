@@ -207,6 +207,7 @@ class Slider {
         }
     }
     updateSlides() {
+        $('#slide' + this.slide).removeClass();
         this.slidesLeft.forEach(function (nbSlide, index) {
             $('#slide' + nbSlide).removeClass();
             $('#slide' + nbSlide).addClass('left' + (index + 1));
@@ -216,8 +217,6 @@ class Slider {
             $('#slide' + nbSlide).removeClass();
             $('#slide' + nbSlide).addClass('right' + (index + 1));
         });
-
-        $('#slide' + this.slide).removeClass();
     }
 
 }
@@ -295,7 +294,7 @@ $(function () {
         slider.previous();
     });
 
-    $(document).keypress(function (e) {
+    $(document).keydown(function (e) {
         let keyPress = e.key;
         if (keyPress == "ArrowRight") {
             slider.next();
