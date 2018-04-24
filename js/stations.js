@@ -171,39 +171,55 @@ class Canvas {
     }
 }
 
-var slide = 1,
-    slidesLeft = [],
-    slidesRight = [2, 3, 4, 5],
-    stationsMarkers = [],
-    station, intervalID, booking;
-
-function updateNav() {
-    switch (slide) {
-        case 1:
-            $('#previous_control').css('visibility', 'hidden');
-            break;
-        case 5:
-            $('#next_control').css('visibility', 'hidden');
-            break;
-        default:
-            $('#previous_control').css('visibility', 'visible');
-            $('#next_control').css('visibility', 'visible');
+class Slider {
+    constructor() {
+        this.slide = 1;
+        this.slidesLeft = [];
+        this.slidesRight = [2, 3, 4, 5];
     }
+    next() {
+        this.slidesLeft.unshift(this.slide);
+        this.slide = this.slidesRight.shift();
+        this.updateSlides();
+        this.updateNav();
+    }
+    previous() {
+        this.slidesRight.unshift(this.slide);
+        this.slide = this.slidesLeft.shift();
+        this.updateSlides();
+        this.updateNav();
+    }
+    updateNav() {
+        switch (this.slide) {
+            case 1:
+                $('#previous_control').css('visibility', 'hidden');
+                break;
+            case 5:
+                $('#next_control').css('visibility', 'hidden');
+                break;
+            default:
+                $('#previous_control').css('visibility', 'visible');
+                $('#next_control').css('visibility', 'visible');
+        }
+    }
+    updateSlides() {
+        this.slidesLeft.forEach(function (nbSlide, index) {
+            $('#slide' + nbSlide).removeClass();
+            $('#slide' + nbSlide).addClass('left' + (index + 1));
+        });
+
+        this.slidesRight.forEach(function (nbSlide, index) {
+            $('#slide' + nbSlide).removeClass();
+            $('#slide' + nbSlide).addClass('right' + (index + 1));
+        });
+
+        $('#slide' + this.slide).removeClass();
+    }
+
 }
 
-function updateSlides() {
-    slidesLeft.forEach(function (nbSlide, index) {
-        $('#slide' + nbSlide).removeClass();
-        $('#slide' + nbSlide).addClass('left' + (index + 1));
-    });
-
-    slidesRight.forEach(function (nbSlide, index) {
-        $('#slide' + nbSlide).removeClass();
-        $('#slide' + nbSlide).addClass('right' + (index + 1));
-    });
-
-    $('#slide' + slide).removeClass();
-}
+var slider, stationsMarkers = [],
+    station, intervalID, booking;
 
 function stationStatus(number) {
 
@@ -257,7 +273,7 @@ function toggleBounce(marker) {
     marker.setAnimation(google.maps.Animation.BOUNCE);
 }
 
-window.onload = function () {
+$(function () {
     // Recovery of the last booking
     if (sessionStorage.getItem('booking')) {
         booking = new Booking();
@@ -266,19 +282,18 @@ window.onload = function () {
     }
 
     // Slider
+    slider = new Slider();
     $('#next_control').click(function () {
-        slidesLeft.unshift(slide);
-        slide = slidesRight.shift();
-        updateSlides();
-        updateNav();
+        slider.next();
     });
 
     $('#previous_control').click(function () {
-        slidesRight.unshift(slide);
-        slide = slidesLeft.shift();
-        updateSlides();
-        updateNav();
+        slider.previous();
     });
+
+});
+
+window.onload = function () {
 
     // Recovery of the stations list
     let stations,
