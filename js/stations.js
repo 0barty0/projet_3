@@ -215,8 +215,6 @@ function stationStatus(number) {
     reqStation.onload = function () {
         station = JSON.parse(reqStation.response);
 
-        $('#canvas_container').css('display', 'none');
-
         // Update station informations
         if (window.innerWidth < 992) {
 
@@ -358,7 +356,6 @@ window.onload = function () {
         booking = new Booking(station.number, station.name);
         booking.setSessionStorage();
         booking.status();
-        $('#canvas_container').slideUp(400);
     });
 
     $('#close_canvas').click(function () {
