@@ -178,16 +178,20 @@ class Slider {
         this.slidesRight = [2, 3, 4, 5];
     }
     next() {
-        this.slidesLeft.unshift(this.slide);
-        this.slide = this.slidesRight.shift();
-        this.updateSlides();
-        this.updateNav();
+        if (this.slidesRight.length != 0) {
+            this.slidesLeft.unshift(this.slide);
+            this.slide = this.slidesRight.shift();
+            this.updateSlides();
+            this.updateNav();
+        }
     }
     previous() {
-        this.slidesRight.unshift(this.slide);
-        this.slide = this.slidesLeft.shift();
-        this.updateSlides();
-        this.updateNav();
+        if (this.slidesLeft.length != 0) {
+            this.slidesRight.unshift(this.slide);
+            this.slide = this.slidesLeft.shift();
+            this.updateSlides();
+            this.updateNav();
+        }
     }
     updateNav() {
         switch (this.slide) {
@@ -289,6 +293,15 @@ $(function () {
 
     $('#previous_control').click(function () {
         slider.previous();
+    });
+
+    $(document).keypress(function (e) {
+        let keyPress = e.key;
+        if (keyPress == "ArrowRight") {
+            slider.next();
+        } else if (keyPress == "ArrowLeft") {
+            slider.previous();
+        }
     });
 
 });
