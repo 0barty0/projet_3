@@ -10,24 +10,18 @@ class Booking {
         if (counter > 0) {
             let minutes = Math.floor(counter / 60),
                 seconds = counter - minutes * 60,
-                pContainer = $('<div></div>').attr('id', 'booking' + this.number).addClass('booking'),
-                pElmt = $('<p></p>'),
-                spanElmt = $('<span></span>').attr('id', 'counter'),
-                cancelBtn = $('<button>Annuler</button>').addClass('btn').attr('id', 'cancel_btn');
+                booking = this;
 
-            pElmt.html('1 vélo réservé à la station ' + this.name + ' pour &shy;');
-            spanElmt.text(minutes + ' min ' + seconds + ' s');
+            let view = {
+              minutes: minutes,
+              seconds: seconds,
+              id: 'booking'+this.number,
+              stationName: this.name
+            },
+            output = Mustache.render(templates.booking,view);
 
-            let booking = this;
-            cancelBtn.click(function () {
-                booking.cancel();
-            });
-
-            pElmt.append(spanElmt);
-            pContainer.append(pElmt);
-            pContainer.append(cancelBtn);
-            $('#booking_panel').append(pContainer);
-
+            $('#booking_panel').html(output);
+            $('#cancel_btn').click(function(){booking.cancel();})
             intervalID = setInterval(function () {
                 booking.update();
             }, 1000);
@@ -394,3 +388,10 @@ window.onload = function () {
         $('#canvas_container').fadeOut(400);
     });
 };
+
+var templates = {
+  booking: '<div id={{id}} class="booking">\
+              <p>1 vélo reservé à la station {{stationName}} pour &shy; <span id="counter">{{minutes}} min {{seconds}} s</span></p>\
+              <button id="cancel_btn" class="btn">Annuler</button>\
+            </div>'
+}
